@@ -1,0 +1,167 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.app {
+	padding: 10px;
+}
+
+.header-container {
+	display: flex;
+	justify-content: space-between;
+	background: linear-gradient(-50deg, #deb887, #8e4815);
+	padding: 10px;
+	align-items: center;
+}
+
+.header-container h2 {
+	font-size: 35px;
+	font-weight: 700;
+	color: white;
+}
+
+.header-login-container {
+	display: flex;
+	column-gap: 5px;
+}
+
+.navbar-container {
+	display: flex;
+	justify-content: space-evenly;
+	padding: 10px 1px;
+}
+
+.navbar-container h3 {
+	font-size: 15px;
+	text-align: center;
+	cursor: pointer;
+	padding: 10px 20px;
+	font-weight: 600;
+}
+
+.active-page {
+	background-color: #deb887;
+	color: white;
+	font-weight: 700;
+}
+
+.entry-form-container,
+.fields {
+	display: flex;
+	flex-direction: column;
+}
+
+.entry-form-container {
+	row-gap: 10px;
+	background-color: #deb887;
+	padding: 10px;
+}
+
+.fields {
+	width: 40%;
+	margin: 0 auto;
+}
+
+input {
+	padding: 5px;
+	outline: none;
+	border: none;
+	font-weight: 500;
+	font-size: 15px;
+	border: 1px solid transparent;
+	transition: 0.2s;
+}
+
+input:focus {
+	border: 1px solid deepskyblue;
+}
+
+.fields label {
+	color: white;
+}
+
+input[type="file"] {
+	color: white;
+}
+
+button {
+	padding: 5px 15px;
+	font-weight: 600;
+	font-size: 15px;
+	height: 100%;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+table {
+	width: 100%;
+}
+
+table,
+th,
+td {
+	border: 1px solid #deb887;
+	border-collapse: collapse;
+	padding: 5px;
+	font-size: 15px;
+	color: var(--accent1);
+}
+
+th {
+	background-color: #deb887;
+	color: white;
+	padding: 5px;
+}
+
+tr:nth-child(even) {
+	background-color: #f8f8f8;
+}
+
+audio {
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.308);
+	height: 50px;
+	border-radius: 50px;
+}
+
+.audio-file {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.review-row {
+	transition: 0.1s;
+}
+
+.review-row:hover {
+	background: #deb887;
+	color: white;
+}
+
+.entry-form-container,
+.submitted-entries-container,
+.review-entries-container {
+	height: 79vh;
+	overflow-y: scroll;
+}
+
+.approved-entries-container {
+	height: 71vh;
+	overflow-y: scroll;
+}
+
+.approval-container {
+	display: flex;
+	padding: 10px 0;
+}
+
+.approval-container button {
+	width: 100%;
+}
+
+.approval-modal-container {
+	height: 60vh;
+	overflow-y: scroll;
+}
