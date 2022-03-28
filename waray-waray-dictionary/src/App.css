@@ -25,7 +25,12 @@
 
 .header-login-container {
 	display: flex;
+	align-items: center;
 	column-gap: 5px;
+}
+
+.mobile-login-container {
+	display: none;
 }
 
 .navbar-container {
@@ -65,7 +70,8 @@
 	margin: 0 auto;
 }
 
-input {
+input,
+textarea {
 	padding: 5px;
 	outline: none;
 	border: none;
@@ -76,6 +82,10 @@ input {
 }
 
 input:focus {
+	border: 1px solid deepskyblue;
+}
+
+textarea:focus {
 	border: 1px solid deepskyblue;
 }
 
@@ -126,6 +136,10 @@ audio {
 	border-radius: 50px;
 }
 
+.mobile-entry-container {
+	display: none;
+}
+
 .audio-file {
 	text-decoration: underline;
 	cursor: pointer;
@@ -142,13 +156,9 @@ audio {
 
 .entry-form-container,
 .submitted-entries-container,
+.approved-entries-container,
 .review-entries-container {
 	height: 79vh;
-	overflow-y: scroll;
-}
-
-.approved-entries-container {
-	height: 71vh;
 	overflow-y: scroll;
 }
 
@@ -164,4 +174,80 @@ audio {
 .approval-modal-container {
 	height: 60vh;
 	overflow-y: scroll;
+}
+
+@media only screen and (max-width: 600px) {
+	.header-container h2 {
+		font-size: 18px;
+		font-weight: 700;
+		color: white;
+		width: 70%;
+	}
+
+	.header-login-container {
+		display: none;
+	}
+
+	.login-indicator {
+		display: none;
+	}
+
+	.mobile-login-container {
+		display: inline;
+	}
+
+	.navbar-container {
+		padding: 10px 0;
+	}
+
+	.navbar-container h3 {
+		font-size: 13px;
+		padding: 5px;
+		text-align: center;
+	}
+
+	table {
+		display: none;
+	}
+
+	.entry-form-container,
+	.submitted-entries-container,
+	.approved-entries-container,
+	.review-entries-container {
+		height: auto;
+		overflow-y: auto;
+	}
+
+	.fields {
+		width: 90%;
+		margin: 0 auto;
+	}
+
+	.mobile-entry-container {
+		display: flex;
+		flex-direction: column;
+		background-color: #deb887;
+		margin: 0 5px 5px 5px;
+		padding: 5px;
+		cursor: pointer;
+		transition: 0.1s;
+	}
+
+	.mobile-entry-container:hover {
+		color: white;
+	}
+
+	.mobile-entry-container h3 {
+		font-size: 16px;
+	}
+
+	.mobile-entry-container h3 i {
+		font-size: 14px;
+		font-weight: 400;
+	}
+
+	.mobile-entry-container p {
+		font-size: 15px;
+		margin-left: 20px;
+	}
 }

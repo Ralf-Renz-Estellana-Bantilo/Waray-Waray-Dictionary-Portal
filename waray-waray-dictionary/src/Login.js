@@ -18,6 +18,7 @@ const Login = ({ setToggleLogin, admin, setIsLoggedIn }) => {
 				isValid = true;
 				alert("Access Granted!");
 				sessionStorage.setItem("showLoginDialog", true);
+				closeModal();
 			}
 		}
 		if (!isValid) {
@@ -27,7 +28,7 @@ const Login = ({ setToggleLogin, admin, setIsLoggedIn }) => {
 
 	return (
 		<div className='modal-container'>
-			<div className='overlay-style'></div>
+			<div className='overlay-style' onClick={closeModal}></div>
 			<div className='verification-container'>
 				<img
 					className='close-icon'
@@ -58,14 +59,6 @@ const Login = ({ setToggleLogin, admin, setIsLoggedIn }) => {
 					</div>
 					<button onClick={(e) => handleLogin(e)}>LOGIN</button>
 				</form>
-				{/* <div className='progress-indication'>
-					<div
-						className='circle'
-						style={{ backgroundColor: "#00b2ff" }}></div>
-					<div
-						className='circle'
-						style={{ backgroundColor: "grey" }}></div>
-				</div> */}
 			</div>
 		</div>
 	);

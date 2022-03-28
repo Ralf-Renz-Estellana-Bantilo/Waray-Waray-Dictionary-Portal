@@ -74,11 +74,11 @@ const EntryForm = ({
 			};
 
 			addEntry(entry);
-			reserFields();
+			resetFields();
 		}
 	};
 
-	const reserFields = () => {
+	const resetFields = () => {
 		setWord("");
 		setDefinition("");
 		setExample("");
@@ -87,6 +87,7 @@ const EntryForm = ({
 		setPlaceOfOrigin("");
 		setContributor("");
 		setEmailAddress("");
+		setPronounciation("");
 		setToggleTermsAndCondition(false);
 		setCheckboxOpen(false);
 	};
@@ -127,7 +128,7 @@ const EntryForm = ({
 			/>
 			<div className='entry-form-container'>
 				<div className='fields'>
-					<label>WORD:</label>
+					<label>WORD*:</label>
 					<input
 						required
 						type='text'
@@ -137,18 +138,18 @@ const EntryForm = ({
 					/>
 				</div>
 				<div className='fields'>
-					<label>PHONETIC SPELLING (HOW TO PRONOUNCE):</label>
+					<label>PHONETIC SPELLING (HOW TO PRONOUNCE)*:</label>
 					<input
 						required
 						type='text'
 						value={phonetic_spelling}
 						onChange={(e) => setPronounciation(e.target.value)}
-						placeholder='Ex: ma-u-pay'
+						placeholder='Ex: ma-u-pay or maúpay'
 					/>
 				</div>
 				<div className='fields'>
-					<label>DEFINITION:</label>
-					<input
+					<label>DEFINITION*:</label>
+					<textarea
 						required
 						type='text'
 						value={definition}
@@ -157,8 +158,8 @@ const EntryForm = ({
 					/>
 				</div>
 				<div className='fields'>
-					<label>EXAMPLE USAGE:</label>
-					<input
+					<label>EXAMPLE USAGE*:</label>
+					<textarea
 						required
 						type='text'
 						value={example}
@@ -197,7 +198,7 @@ const EntryForm = ({
 					/>
 				</div>
 				<div className='fields'>
-					<label>NAME OF CONTRIBUTOR:</label>
+					<label>NAME OF CONTRIBUTOR*:</label>
 					<input
 						required
 						type='text'
@@ -207,7 +208,7 @@ const EntryForm = ({
 					/>
 				</div>
 				<div className='fields'>
-					<label>EMAIL ADDRESS:</label>
+					<label>EMAIL ADDRESS*:</label>
 					<input
 						required
 						type='email'
@@ -216,14 +217,6 @@ const EntryForm = ({
 						placeholder='Enter Email Address'
 					/>
 				</div>
-				{/* <div className='fields'>
-					<label>How to pronounce (Upload audio recording):</label>
-					<input
-						type='file'
-						onChange={(e) => handleFileChange(e)}
-						accept='.mp3, audio/*'
-					/>
-				</div> */}
 				<div className='fields'>
 					<div
 						style={{

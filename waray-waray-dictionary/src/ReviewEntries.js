@@ -37,7 +37,6 @@ const ReviewEntries = ({
 				<td>{entries.dialect ? entries.dialect : "not specified"}</td>
 				<td>{entries.origin ? entries.origin : "not specified"}</td>
 				<td>{entries.contributor}</td>
-				{/* <td>{entries.file}</td> */}
 			</tr>
 		);
 	});
@@ -57,20 +56,46 @@ const ReviewEntries = ({
 			/>
 			<div className='review-entries-container'>
 				{isLoggedIn && (
-					<table>
-						<tr>
-							<th>Word</th>
-							<th>Phonetic Spelling</th>
-							<th>Definition</th>
-							<th>Example</th>
-							<th>Figure of Speech</th>
-							<th>Dialect</th>
-							<th>Place of Origin</th>
-							<th>Contributor</th>
-							{/* <th>How to Pronounce</th> */}
-						</tr>
-						{listOfReviewEntries}
-					</table>
+					<>
+						<table>
+							<tr>
+								<th>Word</th>
+								<th>Phonetic Spelling</th>
+								<th>Definition</th>
+								<th>Example</th>
+								<th>Figure of Speech</th>
+								<th>Dialect</th>
+								<th>Place of Origin</th>
+								<th>Contributor</th>
+							</tr>
+							{listOfReviewEntries}
+						</table>
+						{reviewEntries.map((entry) => {
+							return (
+								<div
+									className='mobile-entry-container'
+									onClick={() => setPreviewEntry(entry)}>
+									<h3 style={{ fontSize: "16px" }}>
+										{entry.word}{" "}
+										<i
+											style={{
+												fontWeight: "400",
+												fontSize: "13px",
+											}}>
+											(
+											{entry.figure_speech
+												? entry.figure_speech
+												: "not specified"}
+											)
+										</i>{" "}
+									</h3>
+									<p style={{ fontSize: "15px", marginLeft: "20px" }}>
+										{entry.definition}
+									</p>
+								</div>
+							);
+						})}
+					</>
 				)}
 				{toggleLogin && !isLoggedIn && (
 					<Login
@@ -83,7 +108,7 @@ const ReviewEntries = ({
 				{!toggleLogin && !isLoggedIn && (
 					<h1 style={{ textAlign: "center" }}>ACCESS DENIED</h1>
 				)}
-				{reviewEntries.length < 1 && (
+				{isLoggedIn && reviewEntries.length < 1 && (
 					<p
 						style={{
 							width: "100%",
@@ -99,9 +124,14 @@ const ReviewEntries = ({
 
 			{previewEntry && (
 				<ModalReviewEntry
+					isLoggedIn={isLoggedIn}
+					activePage={activePage}
+					modalHeaderText='REVIEW ENTRY'
 					previewEntry={previewEntry}
 					setPreviewEntry={setPreviewEntry}
 					handleApproveEntry={handleApproveEntry}
+					confirmDialogText='Approval Confirmation, Wanna continue?'
+					confirmText='APPROVE'
 				/>
 			)}
 		</>

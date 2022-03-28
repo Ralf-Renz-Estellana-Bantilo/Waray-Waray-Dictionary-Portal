@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import ApprovalModal from "./ApprovalModal";
 import Header from "./Header";
+import ModalReviewEntry from "./ModalReviewEntry";
 import Navbar from "./Navbar";
 
 const ApprovedEntries = ({
@@ -13,58 +13,131 @@ const ApprovedEntries = ({
 	setIsLoggedIn,
 	setApprovedEntries,
 }) => {
-	const [openPreview, setOpenPreview] = useState(false);
+	const [previewEntry, setPreviewEntry] = useState(null);
 
 	useEffect(() => {
 		setActivePage("ApprovedEntries");
 	}, []);
 
 	const handlePushToDictionary = async () => {
-		// try {
-		// 	for (let a = 0; a < approvedEntries.length; a++) {
-		// 		await axios
-		// 			.post("http://localhost:1999/api/insert-to-word-entity", {
-		// 				// word_ID: approvedEntries[a].word_ID,
-		// 				word_search: approvedEntries[a].word,
-		// 				word: approvedEntries[a].word,
-		// 				PoS: approvedEntries[a].figure_speech,
-		// 				other_words: null,
-		// 				translation: null,
-		// 				definition: approvedEntries[a].definition,
-		// 				example: approvedEntries[a].example,
-		// 				dialect: approvedEntries[a].dialect,
-		// 				origin: approvedEntries[a].origin,
-		// 				word_speak: null,
-		// 				contributor: approvedEntries[a].contributor,
-		// 			})
-		// 			.catch((error) => console.log(error));
-		// 	}
-		// } catch (error) {
-		// 	console.log(error);
-		// }
+		setApprovedEntries(
+			approvedEntries.map((entry) =>
+				entry.word_ID === previewEntry.word_ID
+					? { ...entry, status: "closed" }
+					: entry
+			)
+		);
+
+		try {
+			await axios
+				.put("http://localhost:1999/api/update-approved-status", {
+					word_ID: previewEntry.word_ID,
+				})
+				.then(() => {
+					console.log("Entry has been pushed to the dictionary");
+				})
+				.catch((error) => console.log(error));
+
+			await axios
+				.post("http://localhost:1999/api/insert-to-word-entity", {
+					word_search: previewEntry.word,
+					word: previewEntry.word,
+					PoS: previewEntry.figure_speech,
+					other_words: null,
+					translation: null,
+					definition: previewEntry.definition,
+					example: previewEntry.example,
+					dialect: previewEntry.dialect,
+					origin: previewEntry.origin,
+					word_speak: null,
+					contributor: previewEntry.contributor,
+				})
+				.then(() => {
+					console.log("Entry has been added");
+				})
+				.catch((error) => console.log(error));
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	let listOfApprovedEntries = approvedEntries.map((entries, index) => {
-		// const audio = require(`../public/audio/${entries.filename}`);
-
 		return (
-			<tr key={index}>
-				<td>{entries.word}</td>
-				<td>{entries.phonetic_spelling}</td>
-				<td>{entries.definition}</td>
-				<td>{entries.example_usage}</td>
-				<td>
+			<tr
+				className={isLoggedIn ? "review-row" : ""}
+				key={index}
+				style={isLoggedIn ? { cursor: "pointer" } : {}}
+				onClick={() => {
+					if (entries.status === "closed") {
+						setPreviewEntry(null);
+					} else if (isLoggedIn) {
+						setPreviewEntry(entries);
+					}
+				}}>
+				<td
+					style={
+						entries.status === "closed" && isLoggedIn
+							? { sampleStyle }
+							: {}
+					}>
+					{entries.word}
+				</td>
+				<td
+					style={
+						entries.status === "closed" && isLoggedIn
+							? { sampleStyle }
+							: {}
+					}>
+					{entries.phonetic_spelling}
+				</td>
+				<td
+					style={
+						entries.status === "closed" && isLoggedIn
+							? { sampleStyle }
+							: {}
+					}>
+					{entries.definition}
+				</td>
+				<td
+					style={
+						entries.status === "closed" && isLoggedIn
+							? { sampleStyle }
+							: {}
+					}>
+					{entries.example_usage}
+				</td>
+				<td
+					style={
+						entries.status === "closed" && isLoggedIn
+							? { sampleStyle }
+							: {}
+					}>
 					{entries.figure_speech ? entries.figure_speech : "not specified"}
 				</td>
-				<td>{entries.dialect ? entries.dialect : "not specified"}</td>
-				<td>{entries.origin ? entries.origin : "not specified"}</td>
-				<td>{entries.contributor}</td>
-				{/* <td className='audio-file' style={{ width: "300px" }}>
-					<audio controls src={audio}>
-						Your browser does not support the
-						<code>audio</code> element.
-					</audio>
-				</td> */}
+				<td
+					style={
+						entries.status === "closed" && isLoggedIn
+							? { sampleStyle }
+							: {}
+					}>
+					{entries.dialect ? entries.dialect : "not specified"}
+				</td>
+				<td
+					style={
+						entries.status === "closed" && isLoggedIn
+							? { sampleStyle }
+							: {}
+					}>
+					{entries.origin ? entries.origin : "not specified"}
+				</td>
+				<td
+					style={
+						entries.status === "closed" && isLoggedIn
+							? { sampleStyle }
+							: {}
+					}>
+					{entries.contributor}
+				</td>
 			</tr>
 		);
 	});
@@ -94,7 +167,6 @@ const ApprovedEntries = ({
 							<th>Dialect</th>
 							<th>Place of Origin</th>
 							<th>Contributor</th>
-							{/* <th>How to Pronounce</th> */}
 						</tr>
 						{listOfApprovedEntries}
 					</table>
@@ -111,24 +183,80 @@ const ApprovedEntries = ({
 						</p>
 					)}
 				</div>
-				{isLoggedIn && approvedEntries.length > 5 && (
-					<div className='approval-container'>
-						<button onClick={handlePushToDictionary}>
-							SAVE TO DICTIONARY
-						</button>
-					</div>
-				)}
 
-				{openPreview && (
-					<ApprovalModal
-						approvedEntries={approvedEntries}
-						setOpenPreview={setOpenPreview}
-						setApprovedEntries={setApprovedEntries}
+				{approvedEntries.map((entry) => {
+					return (
+						<div
+							className='mobile-entry-container'
+							onClick={() => {
+								if (entry.status === "closed" && isLoggedIn) {
+									setPreviewEntry(null);
+								} else {
+									setPreviewEntry(entry);
+								}
+							}}>
+							<h3
+								style={
+									entry.status === "closed" && isLoggedIn
+										? {
+												color: "grey",
+										  }
+										: {}
+								}>
+								{entry.word}{" "}
+								<i
+									style={
+										entry.status === "closed" && isLoggedIn
+											? {
+													color: "grey",
+											  }
+											: {}
+									}>
+									(
+									{entry.figure_speech
+										? entry.figure_speech
+										: "not specified"}
+									)
+								</i>{" "}
+							</h3>
+							<p
+								style={
+									entry.status === "closed" && isLoggedIn
+										? {
+												color: "grey",
+										  }
+										: {}
+								}>
+								{entry.definition}
+							</p>
+						</div>
+					);
+				})}
+
+				{previewEntry && (
+					<ModalReviewEntry
+						isLoggedIn={isLoggedIn}
+						activePage={activePage}
+						modalHeaderText={
+							isLoggedIn
+								? "ADD ENTRY TO DATABASE"
+								: "APPROVED ENTRY PREVIEW"
+						}
+						previewEntry={previewEntry}
+						setPreviewEntry={setPreviewEntry}
+						handleApproveEntry={handlePushToDictionary}
+						confirmDialogText='Are you sure you want to add this entry to the dictionary?'
+						confirmText='SAVE'
 					/>
 				)}
 			</>
 		</>
 	);
+};
+
+export const sampleStyle = {
+	color: "grey",
+	cursor: "auto",
 };
 
 export default ApprovedEntries;

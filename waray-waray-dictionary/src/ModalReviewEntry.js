@@ -4,11 +4,15 @@ const ModalReviewEntry = ({
 	previewEntry,
 	setPreviewEntry,
 	handleApproveEntry,
+	confirmText,
+	confirmDialogText,
+	modalHeaderText,
+	isLoggedIn,
+	activePage,
 }) => {
-	// const audio = require(`../public/audio/${previewEntry.filename}`);
-
 	const approveFunc = () => {
-		if (window.confirm("Approval Confirmation")) {
+		const text = `${confirmDialogText}`;
+		if (window.confirm(text)) {
 			handleApproveEntry(previewEntry);
 			setPreviewEntry(null);
 		}
@@ -19,16 +23,12 @@ const ModalReviewEntry = ({
 			<div className='overlay-style' onClick={() => setPreviewEntry(null)} />
 			<div className='modal-style'>
 				<div className='modal-header'>
-					<h3 className='modal-sub-text'>Review Entry</h3>
+					<h3 className='modal-sub-text'>{modalHeaderText}</h3>
 					<div className='modal-close'></div>
 				</div>
 				<div className='preview-entry-content'>
 					<div className='entry-word'>
 						<h2>{previewEntry.word}</h2>
-						{/* <audio controls src={audio}>
-							Your browser does not support the
-							<code>audio</code> element.
-						</audio> */}
 					</div>
 					<div className='entry-fields'>
 						<div className='entry-field'>
@@ -80,12 +80,14 @@ const ModalReviewEntry = ({
 						style={{ width: "150px" }}>
 						CLOSE
 					</button>
-					<button
-						className='modal-button-send'
-						onClick={approveFunc}
-						style={{ width: "150px" }}>
-						APPROVE
-					</button>
+					{isLoggedIn && activePage !== "SubmittedEntries" && (
+						<button
+							className='modal-button-send'
+							onClick={approveFunc}
+							style={{ width: "150px" }}>
+							{confirmText}
+						</button>
+					)}
 				</div>
 			</div>
 		</div>
