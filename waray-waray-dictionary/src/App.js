@@ -89,7 +89,7 @@ function App() {
 
 		try {
 			await axios
-				.post("${AppConfiguration.url()}/api/create-approved-entry", {
+				.post(`${AppConfiguration.url()}/api/create-approved-entry`, {
 					word_ID: entry.word_ID,
 					word: entry.word,
 					definition: entry.definition,
