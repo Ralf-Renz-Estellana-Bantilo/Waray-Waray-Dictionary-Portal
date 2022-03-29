@@ -7,12 +7,17 @@ const PORT = process.env.PORT || 1999;
 
 app.use(cors());
 app.use(express.json());
+app.use("/Database", express.static("./Database"));
 
 let db = new sqlite3.Database("./Database/dictionary.db", (err) => {
 	if (err) {
 		return console.error(err.message);
 	}
 	console.log("Connected to the in-memory SQlite database.");
+});
+
+app.get("/api/get-database/:filename", (req, res) => {
+	res.download(`./assets/images/${req.params.filename}`);
 });
 
 app.get("/api/words", (req, res) => {

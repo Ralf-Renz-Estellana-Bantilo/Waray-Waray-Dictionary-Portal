@@ -122,19 +122,19 @@ function App() {
 			await axios
 				.get(`${AppConfiguration.url()}/api/read-submitted-entries`)
 				.then((response) => {
-					console.log(response.data);
+					// console.log(response.data);
 					setSubmittedEntries(response.data);
 				});
 			await axios
 				.get(`${AppConfiguration.url()}/api/read-review-entries`)
 				.then((response) => {
-					console.log(response.data);
+					// console.log(response.data);
 					setReviewEntries(response.data);
 				});
 			await axios
 				.get(`${AppConfiguration.url()}/api/read-approved-entries`)
 				.then((response) => {
-					console.log(response.data);
+					// console.log(response.data);
 					setApprovedEntries(response.data);
 				});
 		} catch (error) {
