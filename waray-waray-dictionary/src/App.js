@@ -109,7 +109,9 @@ function App() {
 			await axios.delete(
 				`${AppConfiguration.url()}/api/delete-review-entry/${entry.word_ID}`
 			);
-		} catch (error) {}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	useEffect(async () => {

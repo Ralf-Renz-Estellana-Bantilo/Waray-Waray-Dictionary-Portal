@@ -10,7 +10,7 @@ class AppConfiguration {
 			this.CONFIGURED_URL = "http://localhost:1999";
 		} else {
 			this.CONFIGURED_URL =
-				"https://waray-waray-dictionary-portal.herokuapp.com/";
+				"https://waray-waray-dictionary-portal.herokuapp.com";
 		}
 
 		return this.CONFIGURED_URL;
