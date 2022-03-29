@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import AppConfiguration from "./AppConfiguration";
 import Header from "./Header";
 import ModalReviewEntry from "./ModalReviewEntry";
 import Navbar from "./Navbar";
@@ -30,16 +31,16 @@ const ApprovedEntries = ({
 
 		try {
 			await axios
-				.put("http://localhost:1999/api/update-approved-status", {
+				.put(`${AppConfiguration.url()}/api/update-approved-status`, {
 					word_ID: previewEntry.word_ID,
 				})
 				.then(() => {
-					console.log("Entry has been pushed to the dictionary");
+					console.log(`Entry has been pushed to the dictionary`);
 				})
 				.catch((error) => console.log(error));
 
 			await axios
-				.post("http://localhost:1999/api/insert-to-word-entity", {
+				.post(`${AppConfiguration.url()}/api/insert-to-word-entity`, {
 					word_search: previewEntry.word,
 					word: previewEntry.word,
 					PoS: previewEntry.figure_speech,

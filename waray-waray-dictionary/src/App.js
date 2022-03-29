@@ -6,6 +6,7 @@ import SubmittedEntries from "./SubmittedEntries";
 import ReviewEntries from "./ReviewEntries";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import AppConfiguration from "./AppConfiguration";
 
 function App() {
 	const [activePage, setActivePage] = useState("EntryForm");
@@ -40,7 +41,7 @@ function App() {
 
 		try {
 			await axios
-				.post("http://localhost:1999/api/create-submitted-entry", {
+				.post(`${AppConfiguration.url()}/api/create-submitted-entry`, {
 					word_ID: entry.word_ID,
 					word: entry.word,
 					definition: entry.definition,
@@ -58,7 +59,7 @@ function App() {
 				.catch((error) => console.log(error));
 
 			await axios
-				.post("http://localhost:1999/api/create-review-entry", {
+				.post(`${AppConfiguration.url()}/api/create-review-entry`, {
 					word_ID: entry.word_ID,
 					word: entry.word,
 					definition: entry.definition,
@@ -88,7 +89,7 @@ function App() {
 
 		try {
 			await axios
-				.post("http://localhost:1999/api/create-approved-entry", {
+				.post("${AppConfiguration.url()}/api/create-approved-entry", {
 					word_ID: entry.word_ID,
 					word: entry.word,
 					definition: entry.definition,
@@ -106,7 +107,7 @@ function App() {
 				.catch((error) => console.log(error));
 
 			await axios.delete(
-				`http://localhost:1999/api/delete-review-entry/${entry.word_ID}`
+				`${AppConfiguration.url()}/api/delete-review-entry/${entry.word_ID}`
 			);
 		} catch (error) {}
 	};
@@ -117,19 +118,19 @@ function App() {
 			// 	console.log(response.data);
 			// });
 			await axios
-				.get("http://localhost:1999/api/read-submitted-entries")
+				.get(`${AppConfiguration.url()}/api/read-submitted-entries`)
 				.then((response) => {
 					console.log(response.data);
 					setSubmittedEntries(response.data);
 				});
 			await axios
-				.get("http://localhost:1999/api/read-review-entries")
+				.get(`${AppConfiguration.url()}/api/read-review-entries`)
 				.then((response) => {
 					console.log(response.data);
 					setReviewEntries(response.data);
 				});
 			await axios
-				.get("http://localhost:1999/api/read-approved-entries")
+				.get(`${AppConfiguration.url()}/api/read-approved-entries`)
 				.then((response) => {
 					console.log(response.data);
 					setApprovedEntries(response.data);
