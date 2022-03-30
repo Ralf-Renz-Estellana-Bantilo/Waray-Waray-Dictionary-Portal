@@ -121,11 +121,10 @@ function App() {
 			await axios
 				.get(`${AppConfiguration.url()}/api/read-admin-accounts`)
 				.then((response) => {
-					// console.log(response.data);
 					setAdmin(response.data);
 				});
 		} catch (error) {
-			console.log(error);
+			console.log("try catch error:", error);
 		}
 
 		const isLogin = sessionStorage.getItem("showLoginDialog");

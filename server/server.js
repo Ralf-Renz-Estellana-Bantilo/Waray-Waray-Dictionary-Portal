@@ -270,7 +270,7 @@ app.post("/api/insert-to-word-entity", (req, res) => {
 	});
 });
 
-// APPROVED ENTRIES -----------------------------------
+// ADMIN ACCOUNTS -----------------------------------
 app.get("/api/read-admin-accounts", (req, res) => {
 	var sql = "SELECT * FROM account";
 	// var params = [];
