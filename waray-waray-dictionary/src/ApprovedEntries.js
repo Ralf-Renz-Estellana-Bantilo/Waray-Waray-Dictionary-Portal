@@ -240,7 +240,7 @@ const ApprovedEntries = ({
 						activePage={activePage}
 						modalHeaderText={
 							isLoggedIn
-								? "ADD ENTRY TO DATABASE"
+								? "SAVE TO DICTIONARY"
 								: "APPROVED ENTRY PREVIEW"
 						}
 						previewEntry={previewEntry}

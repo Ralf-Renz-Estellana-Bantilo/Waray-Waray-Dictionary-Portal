@@ -270,6 +270,22 @@ app.post("/api/insert-to-word-entity", (req, res) => {
 	});
 });
 
+// ADMIN ACCOUNTS -----------------------------------
+app.get("/api/read-admin-accounts", (req, res) => {
+	var sql =
+		"SELECT * FROM account";
+	// var params = [];
+	db.all(sql, (err, response) => {
+		if (err) {
+			res.status(400).json({ error: err.message });
+			return;
+		}
+		res.send(response);
+		// console.log(response);
+	});
+});
+
+
 // // close the database connection
 // db.close((err) => {
 // 	if (err) {

@@ -10,30 +10,12 @@ import AppConfiguration from "./AppConfiguration";
 
 function App() {
 	const [activePage, setActivePage] = useState("EntryForm");
-	const [admin, setAdmin] = useState([
-		{
-			userID: 6382019,
-			name: "Jefferson Pinca",
-			username: "jeff",
-			password: "pinca",
-		},
-		{
-			userID: 2348159,
-			name: "Thea Belle Alata",
-			username: "thea",
-			password: "alata",
-		},
-		{
-			userID: 2858403,
-			name: "Admin",
-			username: "admin",
-			password: "admin",
-		},
-	]);
+	const [admin, setAdmin] = useState([]);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [submittedEntries, setSubmittedEntries] = useState([]);
 	const [approvedEntries, setApprovedEntries] = useState([]);
 	const [reviewEntries, setReviewEntries] = useState([]);
+	
 
 	const addEntry = async (entry) => {
 		setSubmittedEntries((entries) => [...entries, entry]);
@@ -137,8 +119,14 @@ function App() {
 					// console.log(response.data);
 					setApprovedEntries(response.data);
 				});
+			await axios
+				.get(`${AppConfiguration.url()}/api/read-admin-accounts`)
+				.then((response) => {
+					console.log(response.data);
+					setAdmin(response.data);
+				});
 		} catch (error) {
-			console.log(error);
+			console.log("try catch error:", error);
 		}
 
 		const isLogin = sessionStorage.getItem("showLoginDialog");
