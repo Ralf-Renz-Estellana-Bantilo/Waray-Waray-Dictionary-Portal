@@ -10,10 +10,6 @@ const Navbar = ({ activePage, admin, isLoggedIn, setIsLoggedIn }) => {
 		navigate(`${path}`);
 	};
 
-	// if (isLoggedIn) {
-	// 	setToggleLogin(true);
-	// }
-
 	return (
 		<>
 			<div className='navbar-container'>

@@ -76,7 +76,6 @@
 	z-index: 1000;
 	border-radius: 5px;
 	box-shadow: 2px 2px 5px black;
-	/* border: 1px solid brown; */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -97,7 +96,6 @@
 }
 
 .verification-container-header {
-	/* border-bottom: 1px solid var(--border1); */
 	width: 90%;
 	margin: 0 auto;
 	position: relative;
@@ -171,15 +169,13 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: relative;
 	padding: 10px;
-	flex-direction: column;
-	row-gap: 10px;
 }
 
 .preview-entry-content .entry-word h2 {
 	font-size: 17px;
 	font-weight: 600;
+	text-align: center;
 }
 
 .entry-fields,
@@ -228,4 +224,14 @@
 	height: 20px;
 	background-color: white;
 	animation: html-fill 2s forwards;
+}
+
+@media only screen and (max-width: 600px) {
+	.modal-container .modal-style {
+		width: 90%;
+	}
+
+	.preview-entry-content {
+		width: 100%;
+	}
 }

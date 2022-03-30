@@ -7,12 +7,17 @@ const PORT = process.env.PORT || 1999;
 
 app.use(cors());
 app.use(express.json());
+// app.use("/Database", express.static("./Database"));
 
 let db = new sqlite3.Database("./Database/dictionary.db", (err) => {
 	if (err) {
 		return console.error(err.message);
 	}
 	console.log("Connected to the in-memory SQlite database.");
+});
+
+app.get("/api/get-database/:filename", (req, res) => {
+	res.download(`./Database/${req.params.filename}`);
 });
 
 app.get("/api/words", (req, res) => {
@@ -181,9 +186,10 @@ app.post("/api/create-approved-entry", (req, res) => {
 	const date = req.body.date;
 	const filename = req.body.filename;
 	const phonetic_spelling = req.body.phonetic_spelling;
+	const status = "active";
 
 	var sql =
-		"INSERT INTO approved_entries (word_ID, word, definition, example_usage, figure_speech, dialect, origin, contributor, word_speak, date, filename, phonetic_spelling) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		"INSERT INTO approved_entries (word_ID, word, definition, example_usage, figure_speech, dialect, origin, contributor, word_speak, date, filename, phonetic_spelling, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	var params = [
 		word_ID,
 		word,
@@ -197,6 +203,7 @@ app.post("/api/create-approved-entry", (req, res) => {
 		date,
 		filename,
 		phonetic_spelling,
+		status,
 	];
 	db.all(sql, params, (err, response) => {
 		if (err) {
@@ -208,6 +215,22 @@ app.post("/api/create-approved-entry", (req, res) => {
 	});
 });
 
+app.put("/api/update-approved-status", (req, res) => {
+	const word_ID = req.body.word_ID;
+
+	var sql = "UPDATE approved_entries SET status='closed' WHERE word_ID=?";
+	var params = [word_ID];
+	db.all(sql, params, (err, response) => {
+		if (err) {
+			res.status(400).json({ error: err.message });
+			return;
+		}
+		res.send("Entry has been pushed to the dictionary!");
+		// console.log(response);
+	});
+});
+
+// WORD ENTITY -----------------------------------
 app.post("/api/insert-to-word-entity", (req, res) => {
 	const word_ID = req.body.word_ID;
 	const word_search = req.body.word_search;
@@ -223,7 +246,7 @@ app.post("/api/insert-to-word-entity", (req, res) => {
 	const contributor = req.body.contributor;
 
 	var sql =
-		"INSERT INTO word_entity ( word_search, word, PoS, other_words, translation, definition, example, dialect, origin ,word_speak, contributor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		"INSERT INTO word_entity (word_search, word, PoS, other_words, translation, definition, example, dialect, origin ,word_speak, contributor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	var params = [
 		word_search,
 		word,

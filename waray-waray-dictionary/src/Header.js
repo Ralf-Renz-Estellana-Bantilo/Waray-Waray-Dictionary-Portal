@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import MenuIcon from "./Images/MenuIconFilled.png";
+import Login from "./Login";
 
 const Header = ({ admin, isLoggedIn, setIsLoggedIn }) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [toggleLogin, setToggleLogin] = useState(false);
 
 	const handleLogin = (e) => {
 		e.preventDefault();
@@ -14,6 +15,8 @@ const Header = ({ admin, isLoggedIn, setIsLoggedIn }) => {
 				setIsLoggedIn(true);
 				sessionStorage.setItem("showLoginDialog", true);
 				isValid = true;
+				setUsername(null);
+				setPassword(null);
 				alert("Access Granted!");
 			}
 		}
@@ -30,14 +33,11 @@ const Header = ({ admin, isLoggedIn, setIsLoggedIn }) => {
 	return (
 		<div className='header-container'>
 			<h2>WARAY WARAY DICTIONARY PORTAL</h2>
-			{/* <img
-				src={MenuIcon}
-				alt=''
-				style={{ height: "35px", filter: "brightness(2)" }}
-			/> */}
 			{isLoggedIn ? (
 				<div className='header-login-container'>
-					<h4 style={{ color: "white", padding: "5px" }}>
+					<h4
+						className='login-indicator'
+						style={{ color: "white", padding: "5px" }}>
 						LOGGED-IN as ADMIN
 					</h4>
 					<button onClick={handleLogout}>LOGOUT</button>
@@ -60,6 +60,31 @@ const Header = ({ admin, isLoggedIn, setIsLoggedIn }) => {
 					/>
 					<button onClick={(e) => handleLogin(e)}>LOGIN as ADMIN</button>
 				</form>
+			)}
+
+			<div className='mobile-login-container'>
+				{isLoggedIn ? (
+					<button
+						onClick={() => {
+							if (window.confirm("Continue Logging out?")) {
+								handleLogout();
+							}
+						}}>
+						LOGOUT
+					</button>
+				) : (
+					<button onClick={() => setToggleLogin(true)}>LOGIN</button>
+				)}
+			</div>
+
+			{toggleLogin ? (
+				<Login
+					setToggleLogin={setToggleLogin}
+					admin={admin}
+					setIsLoggedIn={setIsLoggedIn}
+				/>
+			) : (
+				""
 			)}
 		</div>
 	);

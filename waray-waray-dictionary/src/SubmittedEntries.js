@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
+import ModalReviewEntry from "./ModalReviewEntry";
 import Navbar from "./Navbar";
 
 const SubmittedEntries = ({
@@ -10,6 +11,8 @@ const SubmittedEntries = ({
 	isLoggedIn,
 	setIsLoggedIn,
 }) => {
+	const [previewEntry, setPreviewEntry] = useState(null);
+
 	let listOfSubmittedEntries = submittedEntries.map((entries, index) => {
 		// const audio = require(`../public/audio/${entries.filename}`);
 		return (
@@ -33,6 +36,8 @@ const SubmittedEntries = ({
 			</tr>
 		);
 	});
+
+	const handleApproveEntry = () => {};
 
 	useEffect(() => {
 		setActivePage("SubmittedEntries");
@@ -77,6 +82,45 @@ const SubmittedEntries = ({
 						}}>
 						No submitted entries to display!
 					</p>
+				)}
+
+				{submittedEntries.map((entry) => {
+					return (
+						<div
+							className='mobile-entry-container'
+							onClick={() => {
+								if (entry.status === "closed" && isLoggedIn) {
+									setPreviewEntry(null);
+								} else {
+									setPreviewEntry(entry);
+								}
+							}}>
+							<h3>
+								{entry.word}{" "}
+								<i>
+									(
+									{entry.figure_speech
+										? entry.figure_speech
+										: "not specified"}
+									)
+								</i>{" "}
+							</h3>
+							<p>{entry.definition}</p>
+						</div>
+					);
+				})}
+
+				{previewEntry && (
+					<ModalReviewEntry
+						isLoggedIn={isLoggedIn}
+						activePage={activePage}
+						modalHeaderText='SUBMITTED ENTRY PREVIEW'
+						previewEntry={previewEntry}
+						setPreviewEntry={setPreviewEntry}
+						handleApproveEntry={handleApproveEntry}
+						confirmDialogText='Approval Confirmation, Wanna continue?'
+						confirmText='APPROVE'
+					/>
 				)}
 			</div>
 		</>
