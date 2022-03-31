@@ -16,7 +16,6 @@ const ApprovedEntries = ({
 	setApprovedEntries,
 }) => {
 	const [previewEntry, setPreviewEntry] = useState(null);
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		setActivePage("ApprovedEntries");
@@ -196,9 +195,11 @@ const ApprovedEntries = ({
 								onClick={() => {
 									if (entry.status === "closed" && isLoggedIn) {
 										setPreviewEntry(null);
-									} else if (isLoggedIn) {
-										setPreviewEntry(entry);
-									} else {
+									}
+									// else if (isLoggedIn) {
+									// 	setPreviewEntry(entry);
+									// }
+									else {
 										setPreviewEntry(null);
 									}
 								}}>
