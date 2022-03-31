@@ -70,9 +70,23 @@ const ReviewEntries = ({
 							</tr>
 							{listOfReviewEntries}
 						</table>
+						{isLoggedIn && reviewEntries.length < 1 && (
+							<p
+								style={{
+									width: "100%",
+									backgroundColor: "red",
+									textAlign: "center",
+									padding: "10px",
+									color: "white",
+								}}>
+								No entries to be reviewed!
+							</p>
+						)}
 						<div
 							className='mobile-entry-container'
-							style={{ height: "78vh" }}>
+							style={
+								isLoggedIn ? { height: "71vh" } : { height: "78vh" }
+							}>
 							{reviewEntries.map((entry) => {
 								return (
 									<div
@@ -112,21 +126,8 @@ const ReviewEntries = ({
 						setIsLoggedIn={setIsLoggedIn}
 					/>
 				)}
-
 				{!toggleLogin && !isLoggedIn && (
 					<h1 style={{ textAlign: "center" }}>ACCESS DENIED</h1>
-				)}
-				{isLoggedIn && reviewEntries.length < 1 && (
-					<p
-						style={{
-							width: "100%",
-							backgroundColor: "red",
-							textAlign: "center",
-							padding: "10px",
-							color: "white",
-						}}>
-						No entries to be reviewed!
-					</p>
 				)}
 			</div>
 

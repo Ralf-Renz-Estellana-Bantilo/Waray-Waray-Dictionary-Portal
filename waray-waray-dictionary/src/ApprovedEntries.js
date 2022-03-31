@@ -254,7 +254,7 @@ const ApprovedEntries = ({
 						confirmText='SAVE'
 					/>
 				)}
-				{isLoggedIn && (
+				{isLoggedIn && approvedEntries.length > 0 && (
 					<div className='download-database-container'>
 						<a
 							href={`${AppConfiguration.url()}/api/get-database/dictionary.db`}>
