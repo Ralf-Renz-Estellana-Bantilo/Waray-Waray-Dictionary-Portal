@@ -170,7 +170,6 @@ const EntryForm = ({
 				<div className='fields'>
 					<label>FIGURE OF SPEECH:</label>
 					<input
-						required
 						type='text'
 						value={figureOfSpeech}
 						onChange={(e) => setFigureOfSpeech(e.target.value)}
@@ -180,7 +179,6 @@ const EntryForm = ({
 				<div className='fields'>
 					<label>DIALECT:</label>
 					<input
-						required
 						type='text'
 						value={dialect}
 						onChange={(e) => setDialect(e.target.value)}
@@ -190,7 +188,6 @@ const EntryForm = ({
 				<div className='fields'>
 					<label>PLACE OF ORIGIN:</label>
 					<input
-						required
 						type='text'
 						value={placeOfOrigin}
 						onChange={(e) => setPlaceOfOrigin(e.target.value)}

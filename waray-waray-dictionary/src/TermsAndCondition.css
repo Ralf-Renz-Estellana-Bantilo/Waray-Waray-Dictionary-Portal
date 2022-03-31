@@ -54,11 +54,52 @@
 }
 
 .modal-container .modal-text {
-	text-align: center;
-	padding: 10px 0;
-	font-size: 16px;
-	font-weight: 600;
 	color: black;
+	height: 75vh;
+	overflow-y: scroll;
+	padding: 10px 15px;
+}
+
+.modal-text .modal-text-title h3 {
+	text-align: center;
+	font-weight: 600;
+	font-size: 17px;
+	border-bottom: 1px solid var(--border1);
+	color: var(--accent-main);
+	padding-bottom: 5px;
+}
+
+.modal-text-content h3 {
+	font-weight: 600;
+	font-size: 16px;
+	color: var(--accent-main);
+}
+
+.modal-text-content p {
+	font-size: 15px;
+	color: var(--accent1);
+	margin: 1rem 0;
+	text-align: justify;
+	line-height: 1.5;
+}
+
+.modal-text-content p strong {
+	font-weight: 600;
+	color: var(--accent-main);
+}
+
+.modal-text-content p a {
+	color: var(--accent1);
+	text-decoration: underline;
+}
+
+.modal-text-content ul {
+	margin-left: 20px;
+}
+
+.modal-text-content ul li {
+	font-size: 13px;
+	color: var(--accent1);
 }
 
 .modal-buttons {

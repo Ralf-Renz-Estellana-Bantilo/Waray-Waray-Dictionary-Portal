@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AppConfiguration from "./AppConfiguration";
 import Header from "./Header";
 import ModalReviewEntry from "./ModalReviewEntry";
@@ -15,6 +16,7 @@ const ApprovedEntries = ({
 	setApprovedEntries,
 }) => {
 	const [previewEntry, setPreviewEntry] = useState(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		setActivePage("ApprovedEntries");
@@ -184,28 +186,21 @@ const ApprovedEntries = ({
 						</p>
 					)}
 				</div>
-
-				{approvedEntries.map((entry) => {
-					return (
-						<div
-							className='mobile-entry-container'
-							onClick={() => {
-								if (entry.status === "closed" && isLoggedIn) {
-									setPreviewEntry(null);
-								} else {
-									setPreviewEntry(entry);
-								}
-							}}>
-							<h3
-								style={
-									entry.status === "closed" && isLoggedIn
-										? {
-												color: "grey",
-										  }
-										: {}
-								}>
-								{entry.word}{" "}
-								<i
+				<div
+					className='mobile-entry-container'
+					style={isLoggedIn ? { height: "71vh" } : { height: "78vh" }}>
+					{approvedEntries.map((entry) => {
+						return (
+							<div
+								className='mobile-entry'
+								onClick={() => {
+									if (entry.status === "closed" && isLoggedIn) {
+										setPreviewEntry(null);
+									} else {
+										setPreviewEntry(entry);
+									}
+								}}>
+								<h3
 									style={
 										entry.status === "closed" && isLoggedIn
 											? {
@@ -213,27 +208,36 @@ const ApprovedEntries = ({
 											  }
 											: {}
 									}>
-									(
-									{entry.figure_speech
-										? entry.figure_speech
-										: "not specified"}
-									)
-								</i>{" "}
-							</h3>
-							<p
-								style={
-									entry.status === "closed" && isLoggedIn
-										? {
-												color: "grey",
-										  }
-										: {}
-								}>
-								{entry.definition}
-							</p>
-						</div>
-					);
-				})}
-
+									{entry.word}{" "}
+									<i
+										style={
+											entry.status === "closed" && isLoggedIn
+												? {
+														color: "grey",
+												  }
+												: {}
+										}>
+										(
+										{entry.figure_speech
+											? entry.figure_speech
+											: "not specified"}
+										)
+									</i>{" "}
+								</h3>
+								<p
+									style={
+										entry.status === "closed" && isLoggedIn
+											? {
+													color: "grey",
+											  }
+											: {}
+									}>
+									{entry.definition}
+								</p>
+							</div>
+						);
+					})}
+				</div>
 				{previewEntry && (
 					<ModalReviewEntry
 						isLoggedIn={isLoggedIn}
@@ -249,6 +253,14 @@ const ApprovedEntries = ({
 						confirmDialogText='Are you sure you want to add this entry to the dictionary?'
 						confirmText='SAVE'
 					/>
+				)}
+				{isLoggedIn && (
+					<div className='download-database-container'>
+						<a
+							href={`${AppConfiguration.url()}/api/get-database/dictionary.db`}>
+							Download Database
+						</a>
+					</div>
 				)}
 			</>
 		</>

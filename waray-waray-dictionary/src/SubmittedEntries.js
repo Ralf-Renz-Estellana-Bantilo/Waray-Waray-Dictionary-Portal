@@ -83,32 +83,33 @@ const SubmittedEntries = ({
 						No submitted entries to display!
 					</p>
 				)}
-
-				{submittedEntries.map((entry) => {
-					return (
-						<div
-							className='mobile-entry-container'
-							onClick={() => {
-								if (entry.status === "closed" && isLoggedIn) {
-									setPreviewEntry(null);
-								} else {
-									setPreviewEntry(entry);
-								}
-							}}>
-							<h3>
-								{entry.word}{" "}
-								<i>
-									(
-									{entry.figure_speech
-										? entry.figure_speech
-										: "not specified"}
-									)
-								</i>{" "}
-							</h3>
-							<p>{entry.definition}</p>
-						</div>
-					);
-				})}
+				<div className='mobile-entry-container' style={{ height: "78vh" }}>
+					{submittedEntries.map((entry) => {
+						return (
+							<div
+								className='mobile-entry'
+								onClick={() => {
+									if (entry.status === "closed" && isLoggedIn) {
+										setPreviewEntry(null);
+									} else {
+										setPreviewEntry(entry);
+									}
+								}}>
+								<h3>
+									{entry.word}{" "}
+									<i>
+										(
+										{entry.figure_speech
+											? entry.figure_speech
+											: "not specified"}
+										)
+									</i>{" "}
+								</h3>
+								<p>{entry.definition}</p>
+							</div>
+						);
+					})}
+				</div>
 
 				{previewEntry && (
 					<ModalReviewEntry

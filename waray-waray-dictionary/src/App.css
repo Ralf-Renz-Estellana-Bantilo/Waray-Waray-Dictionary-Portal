@@ -156,9 +156,13 @@ audio {
 
 .entry-form-container,
 .submitted-entries-container,
-.approved-entries-container,
 .review-entries-container {
 	height: 79vh;
+	overflow-y: scroll;
+}
+.approved-entries-container {
+	height: 74vh;
+	position: relative;
 	overflow-y: scroll;
 }
 
@@ -167,8 +171,30 @@ audio {
 	padding: 10px 0;
 }
 
-.approval-container button {
+.download-database-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	bottom: 10px;
+	width: 95%;
+	background-color: #efefef;
+	border: 1px solid rgb(56, 56, 56);
+	border-radius: 2px;
+	margin: 0 auto;
+}
+
+.download-database-container a {
+	color: black;
+	text-decoration: none;
+	padding: 7px;
+	text-align: center;
+	font-weight: 600;
 	width: 100%;
+}
+
+.download-database-container:hover {
+	background-color: #dfdfdf;
 }
 
 .approval-modal-container {
@@ -226,6 +252,11 @@ audio {
 	.mobile-entry-container {
 		display: flex;
 		flex-direction: column;
+		height: 72vh;
+		overflow-y: scroll;
+	}
+
+	.mobile-entry {
 		background-color: #deb887;
 		margin: 0 5px 5px 5px;
 		padding: 5px;
@@ -233,7 +264,7 @@ audio {
 		transition: 0.1s;
 	}
 
-	.mobile-entry-container:hover {
+	.mobile-entry:hover {
 		color: white;
 	}
 

@@ -70,31 +70,39 @@ const ReviewEntries = ({
 							</tr>
 							{listOfReviewEntries}
 						</table>
-						{reviewEntries.map((entry) => {
-							return (
-								<div
-									className='mobile-entry-container'
-									onClick={() => setPreviewEntry(entry)}>
-									<h3 style={{ fontSize: "16px" }}>
-										{entry.word}{" "}
-										<i
+						<div
+							className='mobile-entry-container'
+							style={{ height: "78vh" }}>
+							{reviewEntries.map((entry) => {
+								return (
+									<div
+										className='mobile-entry'
+										onClick={() => setPreviewEntry(entry)}>
+										<h3 style={{ fontSize: "16px" }}>
+											{entry.word}{" "}
+											<i
+												style={{
+													fontWeight: "400",
+													fontSize: "13px",
+												}}>
+												(
+												{entry.figure_speech
+													? entry.figure_speech
+													: "not specified"}
+												)
+											</i>{" "}
+										</h3>
+										<p
 											style={{
-												fontWeight: "400",
-												fontSize: "13px",
+												fontSize: "15px",
+												marginLeft: "20px",
 											}}>
-											(
-											{entry.figure_speech
-												? entry.figure_speech
-												: "not specified"}
-											)
-										</i>{" "}
-									</h3>
-									<p style={{ fontSize: "15px", marginLeft: "20px" }}>
-										{entry.definition}
-									</p>
-								</div>
-							);
-						})}
+											{entry.definition}
+										</p>
+									</div>
+								);
+							})}
+						</div>
 					</>
 				)}
 				{toggleLogin && !isLoggedIn && (
