@@ -200,7 +200,7 @@ const ApprovedEntries = ({
 									// 	setPreviewEntry(entry);
 									// }
 									else {
-										setPreviewEntry(null);
+										setPreviewEntry(entry);
 									}
 								}}>
 								<h3
