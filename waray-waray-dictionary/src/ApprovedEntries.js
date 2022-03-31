@@ -196,8 +196,10 @@ const ApprovedEntries = ({
 								onClick={() => {
 									if (entry.status === "closed" && isLoggedIn) {
 										setPreviewEntry(null);
-									} else {
+									} else if (isLoggedIn) {
 										setPreviewEntry(entry);
+									} else {
+										setPreviewEntry(null);
 									}
 								}}>
 								<h3
