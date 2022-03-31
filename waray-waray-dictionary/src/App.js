@@ -97,25 +97,19 @@ function App() {
 
 	useEffect(async () => {
 		try {
-			// await axios.get("http://localhost:1999/api/words").then((response) => {
-			// 	console.log(response.data);
-			// });
 			await axios
 				.get(`${AppConfiguration.url()}/api/read-submitted-entries`)
 				.then((response) => {
-					// console.log(response.data);
 					setSubmittedEntries(response.data);
 				});
 			await axios
 				.get(`${AppConfiguration.url()}/api/read-review-entries`)
 				.then((response) => {
-					// console.log(response.data);
 					setReviewEntries(response.data);
 				});
 			await axios
 				.get(`${AppConfiguration.url()}/api/read-approved-entries`)
 				.then((response) => {
-					// console.log(response.data);
 					setApprovedEntries(response.data);
 				});
 			await axios
