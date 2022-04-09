@@ -168,12 +168,12 @@ const EntryForm = ({
 					/>
 				</div>
 				<div className='fields'>
-					<label>FIGURE OF SPEECH:</label>
+					<label>PART OF SPEECH:</label>
 					<input
 						type='text'
 						value={figureOfSpeech}
 						onChange={(e) => setFigureOfSpeech(e.target.value)}
-						placeholder='Enter Figure of Speech'
+						placeholder='Enter Part of Speech'
 					/>
 				</div>
 				<div className='fields'>

@@ -63,7 +63,7 @@ const SubmittedEntries = ({
 						<th>Phonetic Spelling</th>
 						<th>Definition</th>
 						<th>Example</th>
-						<th>Figure of Speech</th>
+						<th>Part of Speech</th>
 						<th>Dialect</th>
 						<th>Place of Origin</th>
 						<th>Contributor</th>

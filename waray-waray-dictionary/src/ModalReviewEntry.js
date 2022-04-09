@@ -44,7 +44,7 @@ const ModalReviewEntry = ({
 							<p>{previewEntry.example_usage}</p>
 						</div>
 						<div className='entry-field'>
-							<h3>FIGURE OF SPEECH</h3>
+							<h3>PART OF SPEECH</h3>
 							<p>
 								{previewEntry.figure_speech
 									? previewEntry.figure_speech
