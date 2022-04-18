@@ -14,6 +14,8 @@ const ApprovedEntries = ({
 	isLoggedIn,
 	setIsLoggedIn,
 	setApprovedEntries,
+	submittedEntries,
+	setSubmittedEntries,
 }) => {
 	const [previewEntry, setPreviewEntry] = useState(null);
 
@@ -29,6 +31,13 @@ const ApprovedEntries = ({
 					: entry
 			)
 		);
+
+		let submittedEntriesCopy = submittedEntries;
+		let index = submittedEntriesCopy.findIndex(
+			(x) => x.word_ID === previewEntry.word_ID
+		);
+		submittedEntriesCopy.splice(index, 1);
+		setSubmittedEntries(submittedEntriesCopy);
 
 		try {
 			await axios
