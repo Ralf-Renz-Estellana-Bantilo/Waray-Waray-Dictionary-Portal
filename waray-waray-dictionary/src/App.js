@@ -20,44 +20,44 @@ function App() {
 		setSubmittedEntries((entries) => [...entries, entry]);
 		setReviewEntries((entries) => [...entries, entry]);
 
-		// try {
-		// 	await axios
-		// 		.post(`${AppConfiguration.url()}/api/create-submitted-entry`, {
-		// 			word_ID: entry.word_ID,
-		// 			word: entry.word,
-		// 			definition: entry.definition,
-		// 			example_usage: entry.example_usage,
-		// 			figure_speech: entry.figure_speech,
-		// 			dialect: entry.dialect,
-		// 			origin: entry.origin,
-		// 			contributor: entry.contributor,
-		// 			email_address: entry.email_address,
-		// 			word_speak: entry.word_speak,
-		// 			date: entry.date,
-		// 			filename: entry.filename,
-		// 			phonetic_spelling: entry.phonetic_spelling,
-		// 		})
-		// 		.catch((error) => console.log(error));
+		try {
+			await axios
+				.post(`${AppConfiguration.url()}/api/create-submitted-entry`, {
+					word_ID: entry.word_ID,
+					word: entry.word,
+					definition: entry.definition,
+					example_usage: entry.example_usage,
+					figure_speech: entry.figure_speech,
+					dialect: entry.dialect,
+					origin: entry.origin,
+					contributor: entry.contributor,
+					email_address: entry.email_address,
+					word_speak: entry.word_speak,
+					date: entry.date,
+					filename: entry.filename,
+					phonetic_spelling: entry.phonetic_spelling,
+				})
+				.catch((error) => console.log(error));
 
-		// 	await axios
-		// 		.post(`${AppConfiguration.url()}/api/create-review-entry`, {
-		// 			word_ID: entry.word_ID,
-		// 			word: entry.word,
-		// 			definition: entry.definition,
-		// 			example_usage: entry.example_usage,
-		// 			figure_speech: entry.figure_speech,
-		// 			dialect: entry.dialect,
-		// 			origin: entry.origin,
-		// 			contributor: entry.contributor,
-		// 			word_speak: entry.word_speak,
-		// 			date: entry.date,
-		// 			filename: entry.filename,
-		// 			phonetic_spelling: entry.phonetic_spelling,
-		// 		})
-		// 		.catch((error) => console.log(error));
-		// } catch (error) {
-		// 	alert(error);
-		// }
+			await axios
+				.post(`${AppConfiguration.url()}/api/create-review-entry`, {
+					word_ID: entry.word_ID,
+					word: entry.word,
+					definition: entry.definition,
+					example_usage: entry.example_usage,
+					figure_speech: entry.figure_speech,
+					dialect: entry.dialect,
+					origin: entry.origin,
+					contributor: entry.contributor,
+					word_speak: entry.word_speak,
+					date: entry.date,
+					filename: entry.filename,
+					phonetic_spelling: entry.phonetic_spelling,
+				})
+				.catch((error) => console.log(error));
+		} catch (error) {
+			alert(error);
+		}
 	};
 
 	const handleApproveEntry = async (entry) => {
